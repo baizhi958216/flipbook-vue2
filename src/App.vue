@@ -6,7 +6,7 @@
       <div @click="pageClick(3)">第三页</div>
       <div @click="pageClick(4)">第四页</div>
     </div>
-    <Flipbook class="flipbook" :pages="pages" :pagesHiRes="pagesHiRes" :startPage="pageNum" v-slot="flipbook"
+    <Flipbook class="flipbook" singlePage :pages="pages" :pagesHiRes="pagesHiRes" :startPage="pageNum" v-slot="flipbook"
       ref="flipbook" @flip-left-start="onFlipLeftStart" @flip-left-end="onFlipLeftEnd"
       @flip-right-start="onFlipRightStart" @flip-right-end="onFlipRightEnd" @zoom-start="onZoomStart"
       @zoom-end="onZoomEnd">
@@ -186,7 +186,6 @@ a {
 
 .flipbook .viewport {
   width: 90vw !important;
-  background-color: antiquewhite;
   height: calc(100vh - 50px - 40px) !important;
 }
 
