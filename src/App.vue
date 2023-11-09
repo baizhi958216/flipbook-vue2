@@ -1,46 +1,23 @@
 <template>
   <div id="app">
-    <div>
-      列表
+    <div class="menu">
+      <div @click="pageClick(1)">第一页</div>
+      <div @click="pageClick(2)">第二页</div>
+      <div @click="pageClick(3)">第三页</div>
+      <div @click="pageClick(4)">第四页</div>
     </div>
-    <Flipbook
-      class="flipbook"
-      :pages="pages"
-      :pagesHiRes="pagesHiRes"
-      :startPage="pageNum"
-      v-slot="flipbook"
-      ref="flipbook"
-      @flip-left-start="onFlipLeftStart"
-      @flip-left-end="onFlipLeftEnd"
-      @flip-right-start="onFlipRightStart"
-      @flip-right-end="onFlipRightEnd"
-      @zoom-start="onZoomStart"
-      @zoom-end="onZoomEnd"
-    >
+    <Flipbook class="flipbook" :pages="pages" :pagesHiRes="pagesHiRes" :startPage="pageNum" v-slot="flipbook"
+      ref="flipbook" @flip-left-start="onFlipLeftStart" @flip-left-end="onFlipLeftEnd"
+      @flip-right-start="onFlipRightStart" @flip-right-end="onFlipRightEnd" @zoom-start="onZoomStart"
+      @zoom-end="onZoomEnd">
       <div class="action-bar">
-        <left-icon
-          class="btn left"
-          :class="{ disabled: !flipbook.canFlipLeft }"
-          @click="flipbook.flipLeft"
-        />
-        <plus-icon
-          class="btn plus"
-          :class="{ disabled: !flipbook.canZoomIn }"
-          @click="flipbook.zoomIn"
-        />
+        <left-icon class="btn left" :class="{ disabled: !flipbook.canFlipLeft }" @click="flipbook.flipLeft" />
+        <plus-icon class="btn plus" :class="{ disabled: !flipbook.canZoomIn }" @click="flipbook.zoomIn" />
         <span class="page-num">
           Page {{ flipbook.page }} of {{ flipbook.numPages }}
         </span>
-        <minus-icon
-          class="btn minus"
-          :class="{ disabled: !flipbook.canZoomOut }"
-          @click="flipbook.zoomOut"
-        />
-        <right-icon
-          class="btn right"
-          :class="{ disabled: !flipbook.canFlipRight }"
-          @click="flipbook.flipRight"
-        />
+        <minus-icon class="btn minus" :class="{ disabled: !flipbook.canZoomOut }" @click="flipbook.zoomOut" />
+        <right-icon class="btn right" :class="{ disabled: !flipbook.canFlipRight }" @click="flipbook.flipRight" />
       </div>
     </Flipbook>
   </div>
@@ -85,6 +62,9 @@ export default {
       const n = parseInt(window.location.hash.slice(1), 10)
       if (isFinite(n)) this.pageNum = n
     },
+    pageClick(pageNum) {
+      this.pageNum = pageNum; // 更新当前页数
+    }
   },
   mounted() {
     window.addEventListener('keydown', (ev) => {
@@ -119,7 +99,8 @@ export default {
 </script>
 
 <style>
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -136,6 +117,25 @@ html, body {
   background-color: #333;
   color: #ccc;
   overflow: hidden;
+}
+
+.menu {
+  left: 10rem;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 30px;
+  padding: 10px 20px;
+  z-index: 999;
+  flex-grow: 1;
+  height: calc(100vh) !important;
+}
+
+.menu div {
+  color: white;
+  cursor: pointer;
 }
 
 a {
@@ -186,6 +186,7 @@ a {
 
 .flipbook .viewport {
   width: 90vw !important;
+  background-color: antiquewhite;
   height: calc(100vh - 50px - 40px) !important;
 }
 
